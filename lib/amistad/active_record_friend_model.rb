@@ -69,7 +69,8 @@ module Amistad
       return false if friendship.nil? || amistad_invited?(user)
       friendship.update_attribute(:pending, false)
     end
-
+    alias_method :amistad_invited?, :invited?
+    
     # deletes a friendship
     def remove_friendship(user)
       friendship = find_any_friendship_with(user)
@@ -153,7 +154,7 @@ module Amistad
     end
 
     # checks if a current user invited given user
-    def amistad_invited?(user)
+    def invited?(user)
       friendship = find_any_friendship_with(user)
       return false if friendship.nil?
       friendship.friend_id == user.id
